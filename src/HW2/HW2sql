@@ -1,0 +1,54 @@
+use syntaxhrm_mysql;
+#List all employees who are Cloud Architects?
+select id from ohrm_job_title where job_title='cloud architect';
+
+#How to retrieve information of  the employee who earns the lowest  salary?
+select empid,min(salary) from employee;
+
+#List all employees who are Self Employed/freelancers?
+
+select * from ohrm_job_title where job_title='freelancer' or job_title='self employed';
+
+#Display emergency contact name and phone number of Vlad Tepes
+
+select eec_name,eec_mobile_no from hs_hr_emp_emergency_contacts where eec_name='vlad tepes';
+#How can you display the third highest salary?
+
+select * from employee order by salary desc limit 2,1 ; #How can you display the third highest salary?
+
+#Display last name in uppercase, first name in lowercase.
+select upper(firstname),lower(lastname) from person;
+
+#Verify how many employees don’t have any title assigned?
+select job_title_code,count(*)  from hs_hr_employees where job_title_code is null;
+
+#Verify how many employees are married
+select emp_marital_status,count(*) from hs_hr_employees where emp_marital_status='married';
+
+#Display youngest employee in the company
+select firstname,lastname,min(age) from person ;
+
+#Verify how many Developers we have?
+select job_title,count(*) from ohrm_job_title where job_title='developer';
+
+#How many employees first name starts with A?
+
+select count(*) from person where firstname like 'a%';
+
+#Verify how many Database administrators, Application Developers, Production Manager
+
+select count(*) from ohrm_job_title where job_title in('Database administrators', 'Application Developers', 'Production Manager');
+#Display employees number, first name and lastname and their employment status name.
+#Sort results based on the last name.
+
+select emp_number,emp_firstname,emp_lastname,emp_status from hs_hr_employees group by emp_lastname;
+
+#Display employees number, first name and lastname and job title only
+# for Developers and Application Developers.
+
+Select e.emp_number, e.emp_firstname, e.emp_lastname, j.job_title
+from hs_hr_employees e,ohrm_job_title j where j.job_title in ('Developer' , 'Application Developer') and e.job_title_code=j.id;
+
+#Display employees number, first name and nationality only for employees whose nationality starts with A.
+
+select p.emp_firstname,p.emp_number,n.name from hs_hr_employees p,ohrm_nationality n where p.nation_code=n.id and n.name like 'a%';
